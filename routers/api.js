@@ -7,8 +7,9 @@ apiRouter.post("/", (req, res) => {
   const { visitorName, visitorPhoneNumber, visitorDivision, visitorReason, temp, ...body } = req.body;
   visitorModel
     .create({ visitorName, visitorPhoneNumber, visitorDivision, visitorReason, temp, ...body })
-    .then((e) => {
-      res.send(e);
+    .then((result) => {
+      console.log(result._id);
+      res.send(result)
     })
     .catch((data) => {
       console.log(data);
