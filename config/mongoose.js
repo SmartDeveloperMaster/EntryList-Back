@@ -1,23 +1,15 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const mongoose = require('mongoose');
 
-dotenv.config();
+mongoose.Promise = global.Promise;
+function mongooseConnect(url) {
+  mongoose.connect(url,  
+    { useUnifiedTopology: true, useNewUrlParser: true })
+    .then((result) => {
+      console.log(`MongoDB connected to ${result.connection.host}`);
+    })
+    .catch((err) => {
+      console.log(`error connection to the database: ${err}`);
+    });
+}
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
-
-const db = mongoose.connection;
-
-const connectHandler = () => {
-  console.log("MongoDB is connected");
-};
-
-const crashHandler = (err) => {
-  console.log("MongoDB connection error:", err);
-};
-
-db.once("open", connectHandler);
-db.on("error", crashHandler);
+module.exports = mongooseConnect;
