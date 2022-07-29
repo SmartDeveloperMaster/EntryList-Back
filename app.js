@@ -22,11 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", apiRouter);
 
-app.get("/", (req,res) => {
-  date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
-  res.send(`server time is ${date}`)
-})
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
