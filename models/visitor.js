@@ -5,7 +5,7 @@ const visitorSchema = new Schema({
     visitorPhoneNumber : {type: String, required: true},
     visitorDivision : {type: String, required: true},
     visitorReason : {type: String, required: true},
-    entranceTime : {type: String, default:"null"},
+    entranceTime : {type: String},
     exitTime : {type: String, default:null},
     isEntrance : {type: Boolean, default: true},
     cardId: {type:String, required:true},
