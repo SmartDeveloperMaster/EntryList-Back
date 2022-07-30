@@ -106,3 +106,5 @@ dist
 # static and public html files
 static/
 public/
+
+.idea/
