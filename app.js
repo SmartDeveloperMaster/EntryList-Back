@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const abRequire = require("abrequire");
 const apiRouter = abRequire("routers/api.js");
+const adminRouter = abRequire("routers/admin.js");
 const mongooseConnect = abRequire("config/mongoose.js");
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", apiRouter);
+app.use("/admin", adminRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
