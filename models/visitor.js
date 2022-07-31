@@ -10,12 +10,11 @@ const visitorSchema = new Schema({
     entranceTime : {type: String},
     exitTime : {type: String, default:null},
     isEntrance : {type: Boolean, default: true},
-    cardId: {type:String, required:true},
+    cardId: {type:String, unique:true, required:true },
     temperature: {type:String, required:true},
-    entranceDate: { year: {type:Number, default:undividedDate.getFullYear()}, 
-                    month: {type:Number, default:undividedDate.getMonth()+1},
-                    day: {type:Number, default:undividedDate.getDate()}
-                }
+    entranceYear: {type:Number, default:undividedDate.getFullYear()}, 
+    entranceMonth: {type:Number, default:undividedDate.getMonth()+1},
+    entranceDay: {type:Number, default:undividedDate.getDate()}
 }, {timestamps: true});
 
 exports.visitorModel = model('visitor', visitorSchema);
