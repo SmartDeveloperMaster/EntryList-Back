@@ -4,7 +4,18 @@ const { visitorModel } = require("../models/visitor");
 const adminRouter = express.Router();
 
 adminRouter.get("/", (req,res) => {
-    console.log("get /admin")
+    // const { lookupMonth } = req.body
+    lookupMonth = 7
+    const query = {entranceMonth: { $eq: lookupMonth }}
+    const readField = {visitorName:1,visitorPhoneNumber:1,visitorReason:1,entranceTime:1,exitTime:1,entranceMonth:1,entranceDay:1,_id:0};
+    visitorModel.find(query, readField)
+    .then((result) => {
+        res.send(result)
+    })
+    .catch((err) => {
+        res.send(err);
+        console.error(err);
+    })
 })
 
 module.exports = adminRouter;
