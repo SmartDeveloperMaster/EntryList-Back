@@ -10,9 +10,12 @@ apiRouter.post("/sendVisitorData", (req, res) => {
   .create({ visitorName, visitorPhoneNumber, visitorDivision, visitorReason, entranceTime, cardId, temperature, ...body })
     .then((result) => {
       res.send(true)
+      console.log(result)
     })
     .catch((err) => {
+      // res.status(404).send(err);
       res.send(err);
+      console.log(err)
     });
 });
 
@@ -25,12 +28,13 @@ apiRouter.post("/visitorExit",(req,res) => {
       res.send(true)
     }
     else{
+      
       res.send(false)
     }
     
   })
   .catch((err) => {
-    res.send(err);
+    res.status(404).send(err);
     console.log('error')
   });
 });

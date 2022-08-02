@@ -13,7 +13,7 @@ adminRouter.get("/", (req,res) => {
         res.send(result)
     })
     .catch((err) => {
-        res.send(err);
+        res.status(404).send(err);
         console.error(err);
     })
 })
