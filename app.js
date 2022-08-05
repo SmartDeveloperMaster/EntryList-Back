@@ -1,6 +1,7 @@
 const cors = require('cors')
 const dotenv = require("dotenv");
 const express = require("express");
+const schedule = require('node-schedule');
 const bodyParser = require("body-parser");
 
 const abRequire = require("abrequire");
@@ -29,6 +30,10 @@ app.use("/api", apiRouter);
 app.use("/qr", QrCodeRouter);
 app.use("/test", testRouter);
 app.use("/admin", adminRouter);
+
+const scheduleFunc = schedule.scheduleJob('30 * * * * *', function(){
+    console.log(`30초입니다. , ${new Date()}`)
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
