@@ -1,7 +1,6 @@
 const cors = require('cors')
 const dotenv = require("dotenv");
 const express = require("express");
-// const schedule = require('node-schedule');
 const bodyParser = require("body-parser");
 
 const abRequire = require("abrequire");
@@ -14,6 +13,7 @@ const mongooseConnect = abRequire("config/mongoose.js");
 dotenv.config();
 
 const { PORT, MONGODB_URI } = process.env;
+
 
 const port = PORT || 3005;
 const url = MONGODB_URI || 'mongodb://localhost/visitor-app';
