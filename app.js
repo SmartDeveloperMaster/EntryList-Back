@@ -13,11 +13,20 @@ const mongooseConnect = abRequire("config/mongoose.js");
 
 dotenv.config();
 
-const { PORT, MONGODB_URI } = process.env;
+const { PORT, MONGODB_URI, PRODUCTLEVEL } = process.env;
+let port;
+let url;
 
+if(PRODUCTLEVEL === "product"){
+  port = PORT
+  url = MONGODB_URI
+}else{
+  port = 3005
+  url = "mongodb://localhost:27017/visitor-app"
+}
+// const port = PORT || 3005;
+// const url = MONGODB_URI || 'mongodb://localhost/visitor-app';
 
-const port = PORT || 3005;
-const url = MONGODB_URI || 'mongodb://localhost/visitor-app';
 
 mongooseConnect(url);
 
@@ -34,5 +43,9 @@ app.use("/justTest", justRouter);
 app.use("/admin", adminRouter);
 
 app.listen(port, () => {
+  if(PRODUCTLEVEL === "dev"){
   console.log(`Example app listening at http://localhost:${port}`);
+  }else if(PRODUCTLEVEL === "product"){
+    console.log(`Entrylist Server is started at http://localhost:${port}`);
+  }
 });
