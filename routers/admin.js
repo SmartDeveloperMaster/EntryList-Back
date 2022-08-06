@@ -5,7 +5,7 @@ const adminRouter = express.Router();
 
 adminRouter.get("/", (req,res) => {
     // const { lookupMonth } = req.body
-    lookupMonth = 7
+    lookupMonth = 8
     const query = {entranceMonth: { $eq: lookupMonth }}
     const readField = {visitorName:1,visitorPhoneNumber:1,visitorReason:1,entranceTime:1,exitTime:1,_id:0};
     visitorModel.find(query, readField)
@@ -13,7 +13,7 @@ adminRouter.get("/", (req,res) => {
         res.send(result)
     })
     .catch((err) => {
-        res.status(404).send(err);
+        res.status(500).send(err);
         console.error(err);
     })
 })

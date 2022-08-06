@@ -1,11 +1,15 @@
+const bcrypt = require("bcrypt");
+
 const { qrCodeModel } = require("../models/qrCode");
 const { visitorModel } = require("../models/visitor");
 
-const qrCodeExistCheck = (qrCode) => {
+const qrCodeExistCheck = (visiorInfo) => {
+    const { cardId } = visiorInfo
     return new Promise((resolve, reject) => {
-        qrCodeModel.findOne({ originalCode: qrCode }, {isActive:1, _id:0})
+        qrCodeModel.findOne({ originalCode: cardId })
         .then((result) => {
-            resolve(result.isActive)
+            resolve(result)
+            console.log(result.originalCode)
         }).catch((err) => {
             reject(err)
         }
@@ -14,7 +18,7 @@ const qrCodeExistCheck = (qrCode) => {
 } 
 
 const qrCodeVerification = (qrCode) => {
-    console.log('test'+qrCodeExistCheck(qrCode))
+
 }
 
 const createVisitorData = (visitorInfo) => {
@@ -29,6 +33,19 @@ const createVisitorData = (visitorInfo) => {
     })
 }
 
+const exitData = (visitorInfo) => {
+    return new Promise((resolve, reject) => {
+        const { cardId } = visitorInfo
+        const exitTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
+        visitorModel.findOneAndUpdate({cardId, isEntrance:true}, 
+            {isEntrance: false, exitTime, cardId:null})
+        .then((result) => {
+            resolve(true)
+        }).catch((err) => {
+            reject(err)
+        }
+    )
+    })
+}
 
-
-module.exports = { createVisitorData, qrCodeExistCheck, qrCodeVerification };
+module.exports = { createVisitorData, qrCodeExistCheck, qrCodeVerification, exitData };
