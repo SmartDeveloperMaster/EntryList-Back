@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const abRequire = require("abrequire");
 const apiRouter = abRequire("routers/api.js");
 const testRouter = abRequire("routers/test.js");
+const justRouter = abRequire("test/onlyApiTest.js");
 const adminRouter = abRequire("routers/admin.js");
 const QrCodeRouter = abRequire("routers/makeQrCode.js");
 const mongooseConnect = abRequire("config/mongoose.js");
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", apiRouter);
 app.use("/qr", QrCodeRouter);
 app.use("/test", testRouter);
+app.use("/justTest", justRouter);
 app.use("/admin", adminRouter);
 
 app.listen(port, () => {
