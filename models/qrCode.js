@@ -6,4 +6,4 @@ const QrCodeSchema = new Schema({
     isActive : {type: Boolean, default: false},
 });
 
-exports.QrCodeModel = model('QrCode', QrCodeSchema);
+exports.qrCodeModel = model('QrCode', QrCodeSchema);
