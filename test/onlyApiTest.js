@@ -3,11 +3,12 @@ const dotenv = require("dotenv");
 const express = require("express");
 const { QrCodeModel } = require("../models/qrCode");
 const { visitorModel } = require("../models/visitor");
+const { sendVisitorData } = require("../controllers/visitorCtrl");
 dotenv.config()
-const apiRouter = express.Router();
+const justRouter = express.Router();
 const SALTING  = parseInt(process.env.SALTING);
 
-apiRouter.post("/sendVisitorData", (req, res) => {
+justRouter.post("/sendVisitorData", (req, res) => {
   const { visitorName, visitorPhoneNumber, visitorDivision, visitorReason, temperature } = req.body;
   const cardId = bcrypt.hashSync(req.body.cardId, SALTING);
   const entranceTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
@@ -30,7 +31,7 @@ apiRouter.post("/sendVisitorData", (req, res) => {
     });
 });
 
-apiRouter.post("/visitorExit",(req,res) => {
+justRouter.post("/visitorExit",(req,res) => {
   const { cardId } = req.body
   const exitTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
   visitorModel.findOneAndUpdate({cardId, isEntrance:true}, {isEntrance: false, exitTime, cardId:null})
@@ -48,7 +49,7 @@ apiRouter.post("/visitorExit",(req,res) => {
   });
 });
 
-apiRouter.post("/visitorEntrance",(req,res) => {
+justRouter.post("/visitorEntrance",(req,res) => {
   const query = {isEntrance: { $eq: true}, cardId: {$ne: null}, entranceDay:{$eq:new Date().getDate()}}
   const readField = {visitorName:1,isEntrance:1,cardId:1,entranceTime:1,exitTime:1,_id:0};
   visitorModel.find(query, readField)
@@ -62,9 +63,9 @@ apiRouter.post("/visitorEntrance",(req,res) => {
 )
 })
 
-apiRouter.post("/test12",(req,res) => {
-  QrCodeModel.findOne({originalCode: req.body.cardId}).then(result => {console.log(result)})
+justRouter.post("/test12",(req,res) => {
+  res.send(sendVisitorData(req.body))
 })
 
 
-module.exports = apiRouter;
+module.exports = justRouter;
