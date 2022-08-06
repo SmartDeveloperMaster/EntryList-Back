@@ -1,13 +1,15 @@
-const abrequire = require('abrequire');
-// const { visitorModel } = require(abrequire("models/visitor"));
-// const { QrCodeModel } = require(abrequire("models/qrCode"));
+const { visitorModel } = require("../models/visitor");
 
-// const SALTING = parseInt(process.env.SALTING);
-
-const sendVisitorData = (result) => {
-    console.log(result)
-    console.log(typeof result)
-    return result
+const createVisitorData = (visitorInfo) => {
+    return new Promise((resolve, reject) => {
+        visitorModel.create(visitorInfo)
+        .then((result) => {
+            resolve(true)
+        }).catch((err) => {
+            reject(err)
+        }
+    )
+    })
 } 
 
-module.exports = { sendVisitorData };
+module.exports = { createVisitorData };
