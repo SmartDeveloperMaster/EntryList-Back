@@ -8,26 +8,39 @@ const qrCodeExistCheck = (visiorInfo) => {
     return new Promise((resolve, reject) => {
         qrCodeModel.findOne({ originalCode: cardId })
         .then((result) => {
-            resolve(result)
-            console.log(result.originalCode)
+            if(result.isActive === false){
+                resolve(qrCodeVerification(cardId, result))
+            }else{
+                // qrCode를 사용중임. 빠꾸먹일것
+                resolve(false)
+            }
         }).catch((err) => {
-            reject(err)
+            resolve(false)
         }
     )
     })
 } 
 
-const qrCodeVerification = (qrCode) => {
-
+const qrCodeVerification = async(cardId, qrCodeInfo) => {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(cardId,qrCodeInfo.encryptedCode)
+        .then(result => {
+            if(result === true){resolve(true)}
+            else{resolve(false)}
+        })
+        .catch(err => {
+            resolve(err)
+        })
+    })
 }
 
 const createVisitorData = (visitorInfo) => {
     return new Promise((resolve, reject) => {
         visitorModel.create(visitorInfo)
-        .then((result) => {
+        .then(result => {
             resolve(true)
-        }).catch((err) => {
-            reject(err)
+        }).catch(err => {
+            resolve(false)
         }
     )
     })
@@ -42,7 +55,7 @@ const exitData = (visitorInfo) => {
         .then((result) => {
             resolve(true)
         }).catch((err) => {
-            reject(err)
+            resolve(false)
         }
     )
     })
