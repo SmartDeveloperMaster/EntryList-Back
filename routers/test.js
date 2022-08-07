@@ -27,4 +27,14 @@ testRouter.post("/sendVisitorData", (req, res) => {
 });
 
 
+testRouter.post("/qrTest",(req,res) => {
+  const { cardId } = req.body
+  if(cardId === "sdhs001"){
+    res.send(true)
+  }
+  else{
+    res.status(500).send(false)
+  }
+})
+
 module.exports = testRouter;
