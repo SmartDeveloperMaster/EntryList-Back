@@ -64,25 +64,24 @@ justRouter.post("/visitorEntrance",(req,res) => {
 })
 
 justRouter.post("/test1", async(req,res) => {
-  if(createVisitorData(req.body)){
-    res.send('성공')
+  if(await createVisitorData(req.body)){
+    res.send(true)
   }else{
-    res.send('실패')
+    res.send(false)
   }
 })
 
 
 justRouter.post("/test2", async(req,res) => {
-  if(qrCodeExistCheck(req.body)){
-    res.send(qrCodeExistCheck(req.body))
-    // res.send(qrCodeExistCheck(req.body.cardId))
-  }else{
-    res.send('존재하지 않는 코드입니다.')
-  }
+     if(await qrCodeExistCheck(req.body) === false){
+      res.send(await qrCodeExistCheck(req.body))
+     }else{
+      res.send('활성화 됨')
+     }
 })
 
 justRouter.post("/test3", async(req,res) => {
-  exitData(req.body)
+  res.send(await qrCodeExistCheck(req.body))
 })
 
 module.exports = justRouter;
