@@ -2,21 +2,26 @@ const express = require("express");
 const { visitorModel } = require("../models/visitor");
 const { createVisitorData, 
         qrCodeExistCheck, 
-        qrCodeVerification, 
-        exitData } = require("../controllers/visitorCtrl");
+        exitVisitor } = require("../controllers/visitorCtrl");
 
 const apiRouter = express.Router();
 
 apiRouter.post("/sendVisitorData", async (req, res) => {
-    if(await createVisitorData(req.body) === true){
-        res.send(true)
+    if(await qrCodeExistCheck(req.body)){
+        res.send(await createVisitorData(req.body))
     }else{
-        res.send(false)
+        // qr코드가 db에 없는 값일때
+        res.status(500).send(false)
     }
 })
 
 apiRouter.post("/visitorExit", async (req, res) => {
-    
+    if(await qrCodeExistCheck(req.body)){
+        res.send(await exitVisitor(req.body))
+    }else{
+        // qr코드가 db에 없는 값일때
+        res.status(500).send(false)
+    }
 })
 
 module.exports = apiRouter;

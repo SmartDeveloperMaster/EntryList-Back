@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const { QrCodeModel } = require("../models/qrCode");
 const { visitorModel } = require("../models/visitor");
-const { createVisitorData, qrCodeVerification, qrCodeExistCheck, exitData } = require("../controllers/visitorCtrl");
+const { createVisitorData, qrCodeVerification, qrCodeExistCheck, exitVisitor } = require("../controllers/visitorCtrl");
 dotenv.config()
 const justRouter = express.Router();
 const SALTING  = parseInt(process.env.SALTING);
@@ -82,6 +82,10 @@ justRouter.post("/test2", async(req,res) => {
 
 justRouter.post("/test3", async(req,res) => {
   res.send(await qrCodeExistCheck(req.body))
+})
+
+justRouter.post("/test4", async(req,res) => {
+  res.send(await exitVisitor(req.body))
 })
 
 module.exports = justRouter;

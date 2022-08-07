@@ -1,6 +1,6 @@
 const express = require("express");
 const { testModel } = require("../models/test");
-
+const { qrCodeModel } = require("../models/qrCode");
 const testRouter = express.Router();
 
 testRouter.post("/sendVisitorData", (req, res) => {
@@ -27,14 +27,18 @@ testRouter.post("/sendVisitorData", (req, res) => {
 });
 
 
-testRouter.post("/qrTest",(req,res) => {
-  const { cardId } = req.body
-  if(cardId === "sdhs001"){
-    res.send(true)
-  }
-  else{
+testRouter.post("/qrTest", (req,res) => {
+  const {cardId} = req.body
+  qrCodeModel.findOne({originalCode: cardId})
+  .then(result => {
+    if(result !== null){
+      res.send(true)
+    }else{
+      res.status(500).send(false)
+    }
+  }).catch(err => {
     res.status(500).send(false)
-  }
+  })
 })
 
 module.exports = testRouter;

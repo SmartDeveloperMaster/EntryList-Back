@@ -10,7 +10,7 @@ const visitorSchema = new Schema({
     entranceTime : {type: String, default : undividedDate.toLocaleString({timeZone: "Asia/Seoul"})},
     exitTime : {type: String, default:null},
     isEntrance : {type: Boolean, default: true},
-    cardId: {type:String, required:true },
+    cardId: {type:String, required:true},
     temperature: {type:String, required:true},
     entranceYear: {type:Number, default:undividedDate.getFullYear()}, 
     entranceMonth: {type:Number, default:undividedDate.getMonth()+1},
