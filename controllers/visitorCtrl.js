@@ -62,20 +62,6 @@ const createVisitorData = (visitorInfo) => {
     })
 }
 
-const exitData = (visitorInfo) => {
-    return new Promise((resolve, reject) => {
-        const { cardId } = visitorInfo
-        const exitTime = date = new Date().toTimeString().split(" ")[0];
-        visitorModel.findOneAndUpdate({cardId, isEntrance:true}, 
-            {isEntrance: false, exitTime, cardId:null})
-        .then((result) => {
-            resolve(true)
-        }).catch((err) => {
-            resolve(false)
-        }
-    )
-    })
-}
 
 const exitVisitor = (visitorInfo) => {
     return new Promise((resolve, reject) => {
