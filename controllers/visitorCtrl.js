@@ -4,8 +4,8 @@ const { qrCodeModel } = require("../models/qrCode");
 const { visitorModel } = require("../models/visitor");
 
 const qrCodeExistCheck = (visiorInfo) => {
-    const { cardId } = visiorInfo
     return new Promise((resolve, reject) => {
+        const { cardId } = visiorInfo
         qrCodeModel.findOne({ originalCode: cardId })
         .then((result) => {
             if(result.isActive === false){
@@ -24,12 +24,13 @@ const qrCodeExistCheck = (visiorInfo) => {
 
 qrCodeActiceCheck = (cardId) => {
     return new Promise((resolve, reject) => {
-        const { cardId } = visiorInfo
+        const { cardId } = cardId
         qrCodeModel.findOne({ originalCode: cardId })
         .then(result => {
             console.log(result)
         })
         .catch(err => {
+            // 존재하지 않는 qrCode이다.
             console.log(err)
         })
     })

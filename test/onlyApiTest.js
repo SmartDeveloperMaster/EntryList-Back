@@ -88,4 +88,8 @@ justRouter.post("/test4", async(req,res) => {
   res.send(await exitVisitor(req.body))
 })
 
+justRouter.post("/test4", async(req,res) => {
+  res.send(await qrCodeActiceCheck(req.body))
+})
+
 module.exports = justRouter;
