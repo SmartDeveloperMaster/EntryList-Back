@@ -7,7 +7,7 @@ const visitorSchema = new Schema({
     visitorPhoneNumber : {type: String, required: true},
     visitorDivision : {type: String, required: true},
     visitorReason : {type: String, required: true},
-    entranceTime : {type: String, default : undividedDate.toLocaleString({timeZone: "Asia/Seoul"})},
+    entranceTime : {type: String, default : undividedDate.toTimeString().split(" ")[0]},
     exitTime : {type: String, default:null},
     isEntrance : {type: Boolean, default: true},
     cardId: {type:String, required:true},

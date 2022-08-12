@@ -11,7 +11,7 @@ testRouter.post("/sendVisitorData", (req, res) => {
   cardId = 8
   temperature = 36.5
   // const { visitorName, visitorPhoneNumber, visitorDivision, visitorReason, cardId, temperature, ...body } = req.body;
-  const entranceTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
+  const entranceTime = date = new Date().toTimeString().split(" ")[0];
   testModel
   // .create({ visitorName, visitorPhoneNumber, visitorDivision, visitorReason, entranceTime, cardId, temperature, ...body })
   .create({ visitorName, visitorPhoneNumber, visitorDivision, visitorReason, entranceTime, cardId, temperature })

@@ -52,7 +52,7 @@ const createVisitorData = (visitorInfo) => {
     return new Promise((resolve, reject) => {
         visitorModel.create(visitorInfo)
         .then(result => {
-            // console.log(result)
+            console.log("데이터 생성 완료")
             resolve(true)
         }).catch(err => {
             console.log(err)
@@ -65,7 +65,7 @@ const createVisitorData = (visitorInfo) => {
 const exitData = (visitorInfo) => {
     return new Promise((resolve, reject) => {
         const { cardId } = visitorInfo
-        const exitTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
+        const exitTime = date = new Date().toTimeString().split(" ")[0];
         visitorModel.findOneAndUpdate({cardId, isEntrance:true}, 
             {isEntrance: false, exitTime, cardId:null})
         .then((result) => {
@@ -81,7 +81,7 @@ const exitVisitor = (visitorInfo) => {
     return new Promise((resolve, reject) => {
         const { cardId } = visitorInfo
         console.log(cardId)
-        const exitTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
+        const exitTime = date = new Date().toTimeString().split(" ")[0];
         visitorModel.findOneAndUpdate({cardId, isEntrance:true},
             {isEntrance: false, exitTime, cardId:null})
         .then((result) => {

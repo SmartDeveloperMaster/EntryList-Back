@@ -1,5 +1,4 @@
 const express = require("express");
-const { visitorModel } = require("../models/visitor");
 const { createVisitorData, 
         qrCodeExistCheck, 
         exitVisitor } = require("../controllers/visitorCtrl");

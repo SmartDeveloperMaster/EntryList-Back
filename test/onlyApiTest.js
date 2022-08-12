@@ -11,7 +11,7 @@ const SALTING  = parseInt(process.env.SALTING);
 justRouter.post("/sendVisitorData", (req, res) => {
   const { visitorName, visitorPhoneNumber, visitorDivision, visitorReason, temperature } = req.body;
   const cardId = bcrypt.hashSync(req.body.cardId, SALTING);
-  const entranceTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
+  const entranceTime = date = new Date().toTimeString().split(" ")[0];
   visitorModel
   .create({ visitorName, visitorPhoneNumber, visitorDivision, visitorReason, entranceTime, cardId, temperature })
     .then((result) => {
@@ -33,7 +33,7 @@ justRouter.post("/sendVisitorData", (req, res) => {
 
 justRouter.post("/visitorExit",(req,res) => {
   const { cardId } = req.body
-  const exitTime = date = new Date().toLocaleString({timeZone: "Asia/Seoul"})
+  const exitTime = date = new Date().toTimeString().split(" ")[0];
   visitorModel.findOneAndUpdate({cardId, isEntrance:true}, {isEntrance: false, exitTime, cardId:null})
   .then((result) => {
     if(typeof result){
