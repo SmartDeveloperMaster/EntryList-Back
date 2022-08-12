@@ -20,6 +20,7 @@ adminRouter.post("/", (req,res) => {
 })
 
 adminRouter.post("/access", async(req, res) => {
+    console.log(req.body)
     res.send(await adminAccess(req.body))
 })
 
