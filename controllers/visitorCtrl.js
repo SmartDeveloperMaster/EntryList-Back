@@ -22,12 +22,17 @@ const qrCodeExistCheck = (visiorInfo) => {
     })
 }
 
-qrCodeActiceCheck = (cardId) => {
+qrCodeActiceCheck = (cardNumber) => {
     return new Promise((resolve, reject) => {
-        const { cardId } = cardId
-        qrCodeModel.findOne({ originalCode: cardId })
+        const { cardId } = cardNumber
+        qrCodeModel.findOne({ originalCode: cardId }, {isActive:1, _id:0})
         .then(result => {
-            console.log(result)
+            if(result){
+                console.log(result)
+            }
+            else{
+                console.log(`err ${result}`)
+            }
         })
         .catch(err => {
             // 존재하지 않는 qrCode이다.
