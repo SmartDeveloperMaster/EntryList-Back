@@ -1,7 +1,7 @@
 const express = require("express");
 const { visitorModel } = require("../models/visitor");
 const { adminAccess } = require("../controllers/adminCtrl");
-const { adminModel } = require("../models/admin");
+// const { adminModel } = require("../models/admin");
 
 const adminRouter = express.Router();
 
@@ -24,16 +24,16 @@ adminRouter.post("/access", async(req, res) => {
     res.send(await adminAccess(req.body))
 })
 
-adminRouter.post("/get", (req,res) => {
-    const { adminKey } = req.body
-    console.log(adminKey)
-    adminModel.create({adminKey:adminKey})
-    .then((result) => {
-        res.send(true)
-    }).catch((err) => {
-        res.status(500).send(err);
-        console.log(err)
-    })
-})
+// adminRouter.post("/get", (req,res) => {
+//     const { adminKey } = req.body
+//     console.log(adminKey)
+//     adminModel.create({adminKey:adminKey})
+//     .then((result) => {
+//         res.send(true)
+//     }).catch((err) => {
+//         res.status(500).send(err);
+//         console.log(err)
+//     })
+// })
 
 module.exports = adminRouter;

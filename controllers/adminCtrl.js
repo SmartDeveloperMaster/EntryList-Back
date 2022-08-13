@@ -20,4 +20,5 @@ const adminAccess = (requestBody) => {
     })
 }
 
+
 module.exports = { adminAccess }
